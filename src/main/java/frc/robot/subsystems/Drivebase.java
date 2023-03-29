@@ -12,22 +12,24 @@ import com.revrobotics.CANSparkMax.*;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import frc.robot.Constants.*;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 public class Drivebase extends SubsystemBase {
     private DifferentialDrive m_crush;
     private Joystick m_leftStick;
     private Joystick m_rightStick;
-    private CANSparkMax m_leftDriveMotor;
-    private CANSparkMax m_rightDriveMotor;
+    private VictorSPX m_leftDriveMotor;
+    private VictorSPX m_rightDriveMotor;
 
   /** Creates a new Subsystem. */
   public Drivebase() {
-    m_leftDriveMotor = new CANSparkMax(DrivebaseConstants.kLeftDriveMotorID, MotorType.kBrushed);
-    m_rightDriveMotor = new CANSparkMax(DrivebaseConstants.kRightDriveMotorID, MotorType.kBrushed);
+    m_leftDriveMotor = new VictorSPX(DrivebaseConstants.kLeftDriveMotorID);
+    m_rightDriveMotor = new VictorSPX(DrivebaseConstants.kRightDriveMotorID);
 
-    m_leftDriveMotor.restoreFactoryDefaults();
-    m_rightDriveMotor.restoreFactoryDefaults();
+    m_leftDriveMotor.configFactoryDefault();
+    m_rightDriveMotor.configFactoryDefault();
 
     m_crush = new DifferentialDrive(m_leftDriveMotor, m_rightDriveMotor);
 
