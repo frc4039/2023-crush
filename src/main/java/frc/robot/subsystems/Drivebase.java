@@ -6,11 +6,34 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.*;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.Constants.*;
 
 public class Drivebase extends SubsystemBase {
-  /** Creates a new ExampleSubsystem. */
-  public Drivebase() {}
+    private DifferentialDrive m_crush;
+    private Joystick m_leftStick;
+    private Joystick m_rightStick;
+    private CANSparkMax m_leftDriveMotor;
+    private CANSparkMax m_rightDriveMotor;
+
+  /** Creates a new Subsystem. */
+  public Drivebase() {
+    m_leftDriveMotor = new CANSparkMax(DrivebaseConstants.kLeftDriveMotorID, MotorType.kBrushed);
+    m_rightDriveMotor = new CANSparkMax(DrivebaseConstants.kRightDriveMotorID, MotorType.kBrushed);
+
+    m_leftDriveMotor.restoreFactoryDefaults();
+    m_rightDriveMotor.restoreFactoryDefaults();
+
+    m_crush = new DifferentialDrive(m_leftDriveMotor, m_rightDriveMotor);
+
+    m_leftStick = new Joystick(DrivebaseConstants.kLeftJoystickPort);
+    m_rightStick = new Joystick(DrivebaseConstants.kRightJoystickPort);
+  }
 
   /**
    * Example command factory method.
@@ -39,6 +62,7 @@ public class Drivebase extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    m_crush.tankDrive(m_leftStick.getY(), m_rightStick.getY());
   }
 
   @Override
