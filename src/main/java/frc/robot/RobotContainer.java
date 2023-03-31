@@ -29,7 +29,7 @@ public class RobotContainer {
      */
     public RobotContainer() {
         s_driveTrain.setDefaultCommand(new InstantCommand(
-                () -> s_driveTrain.drive(-m_driverController.getLeftY(), -m_driverController.getRightY())));
+                () -> s_driveTrain.drive(-m_driverController.getLeftY(), -m_driverController.getLeftX())));
 
         // Configure the trigger bindings
         configureButtonBindings();
