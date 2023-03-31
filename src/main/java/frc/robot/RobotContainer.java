@@ -8,6 +8,7 @@ import frc.robot.Constants.DriverConstants;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -20,24 +21,27 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
-    private final DriveTrain m_driveTrain = new DriveTrain();
+    private final DriveTrain s_driveTrain = new DriveTrain();
 
     private final XboxController m_driverController = new XboxController(DriverConstants.kDriverControllerPort);
-
-    private final int driveAxis = XboxController.Axis.kLeftY.value;
-    private final int rotationAxis = XboxController.Axis.kLeftX.value;
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
-        CommandScheduler.getInstance().registerSubsystem(m_driveTrain);
+        s_driveTrain.setDefaultCommand(new InstantCommand(
+                () -> s_driveTrain.drive(-m_driverController.getLeftY(), -m_driverController.getRightY())));
+
         // Configure the trigger bindings
         configureButtonBindings();
     }
 
     private void configureButtonBindings() {
 
+    }
+
+    public DriveTrain getDriveTrain() {
+        return s_driveTrain;
     }
 
 }

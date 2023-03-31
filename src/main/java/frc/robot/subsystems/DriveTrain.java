@@ -26,12 +26,13 @@ public class DriveTrain extends SubsystemBase {
         m_rightDriveMotor.setInverted(false);
 
         m_drive = new DifferentialDrive(m_leftDriveMotor, m_rightDriveMotor);
+        m_drive.setSafetyEnabled(true);
+        m_drive.setExpiration(0.1);
+        m_drive.setMaxOutput(1.0);
     }
 
-    public void drive(double left, double right) {
-        m_drive.feed();
-        m_leftDriveMotor.set(left);
-        m_rightDriveMotor.set(right);
+    public void drive(double speed, double rotation) {
+        m_drive.arcadeDrive(speed, rotation);
     }
 
     @Override
