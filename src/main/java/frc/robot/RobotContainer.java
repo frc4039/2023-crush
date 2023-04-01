@@ -5,8 +5,10 @@
 package frc.robot;
 
 import frc.robot.Constants.DriverConstants;
+import frc.robot.commands.ArcadeDrive;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
@@ -28,8 +30,10 @@ public class RobotContainer {
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
-        s_driveTrain.setDefaultCommand(new InstantCommand(
-                () -> s_driveTrain.drive(-m_driverController.getLeftY(), -m_driverController.getLeftX())));
+        s_driveTrain.setDefaultCommand(new ArcadeDrive(
+                () -> m_driverController.getLeftY(),
+                () -> m_driverController.getLeftX(),
+                s_driveTrain));
 
         // Configure the trigger bindings
         configureButtonBindings();

@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -31,8 +32,19 @@ public class DriveTrain extends SubsystemBase {
         m_drive.setMaxOutput(1.0);
     }
 
-    public void drive(double speed, double rotation) {
-        m_drive.arcadeDrive(speed, rotation);
+    public void drive(double left, double right) {
+        m_drive.feed();
+        m_leftDriveMotor.set(left);
+        m_rightDriveMotor.set(right);
+    }
+
+    public double normalizeJoystickWithDeadband(double val, double deadband) {
+        val = (Math.abs(val) > Math.abs(deadband)) ? val : 0.0;
+
+        if (val != 0)
+            val = Math.signum(val) * ((Math.abs(val) - deadband) / (1.0 - deadband));
+
+        return (Math.abs(val) > Math.abs(deadband)) ? val : 0.0;
     }
 
     @Override

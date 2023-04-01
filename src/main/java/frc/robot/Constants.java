@@ -24,5 +24,6 @@ public final class Constants {
     public static class DriveTrainConstants {
         public static final int kLeftDriveMotorID = 1;
         public static final int kRightDriveMotorID = 2;
+        public static final double kOpenLoopRampRate = 0.3;
     }
 }
