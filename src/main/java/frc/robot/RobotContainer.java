@@ -31,8 +31,8 @@ public class RobotContainer {
     private final Head s_Head = new Head();
 
     private final XboxController m_driverController = new XboxController(DriverConstants.kDriverControllerPort);
-    private final JoystickButton advanceState = new JoystickButton(m_driverController, XboxController.Button.kB.value);
-    private final JoystickButton reverseState = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+    private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
+    private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
     private final JoystickButton driverRightBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
     private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
     /**
@@ -50,8 +50,8 @@ public class RobotContainer {
 
     private void configureButtonBindings() {
 
-        advanceState.onTrue(new InstantCommand(() -> s_Crusher.advanceState()));
-        reverseState.onTrue(new InstantCommand(() -> s_Crusher.reverseState()));
+        driverBButton.onTrue(new InstantCommand(() -> s_Crusher.advanceState()));
+        driverXButton.onTrue(new InstantCommand(() -> s_Crusher.reverseState()));
         driverRightBumper.whileTrue(new SpinHeadCW(s_Head));
         driverLeftBumper.whileTrue(new SpinHeadCCW(s_Head));
 
