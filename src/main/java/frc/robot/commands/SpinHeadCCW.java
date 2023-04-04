@@ -9,35 +9,35 @@ import frc.robot.subsystems.Head;
 
 public class SpinHeadCCW extends CommandBase {
 
-  Head m_head;
- 
-  /** Creates a new SpinHeadCCW. */
-  public SpinHeadCCW(Head head) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(head);
-    m_head = head;
+    Head m_Head;
 
-  }
+    /** Creates a new SpinHeadCCW. */
+    public SpinHeadCCW(Head head) {
+        // Use addRequirements() here to declare subsystem dependencies.
+        m_Head = head;
+        addRequirements(m_Head);
+    }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+    }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    m_head.spinCCW();
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        m_Head.spinCCW();
+    }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    m_head.stop();
-  }
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        m_Head.stop();
+    }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

@@ -5,7 +5,9 @@
 package frc.robot;
 
 import frc.robot.Constants.DriverConstants;
+import frc.robot.commands.AdvanceState;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.ReverseState;
 import frc.robot.commands.SpinHeadCCW;
 import frc.robot.commands.SpinHeadCW;
 import frc.robot.subsystems.Crusher;
@@ -53,8 +55,8 @@ public class RobotContainer {
 
     private void configureButtonBindings() {
 
-        driverBButton.onTrue(new InstantCommand(() -> s_Crusher.advanceState()));
-        driverXButton.onTrue(new InstantCommand(() -> s_Crusher.reverseState()));
+        driverBButton.onTrue(new AdvanceState(s_Crusher));
+        driverXButton.onTrue(new ReverseState(s_Crusher));
         driverRightBumper.whileTrue(new SpinHeadCW(s_Head));
         driverLeftBumper.whileTrue(new SpinHeadCCW(s_Head));
 
