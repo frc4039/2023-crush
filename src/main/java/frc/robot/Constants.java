@@ -22,8 +22,26 @@ public final class Constants {
     }
 
     public static class DriveTrainConstants {
-        public static final int kLeftDriveMotorID = 1;
-        public static final int kRightDriveMotorID = 2;
+        public static final int kLeftDriveMotorDeviceID = 1;
+        public static final int kRightDriveMotorDeviceID = 2;
         public static final double kOpenLoopRampRate = 0.3;
+    }
+
+    public static class HeadConstants {
+        public static final int kHeadMotorDeviceID = 20;
+        public static final double kCWSpeed = 0.5;
+        public static final double kCCWSpeed = -0.5;
+    }
+
+    public static class CrusherConstants {
+        public static final int kDoubleSolenoidModuleID = 25;
+        public static final int kIndexerFowardChannel = 0;
+        public static final int kIndexerReverseChannel = 1;
+        public static final int kCrushFowardChannel = 2;
+        public static final int kCrushReverseChannel = 3;
+        public static final int kDentFowardChannel = 4;
+        public static final int kDentReverseChannel = 5;
+        public static final int kEjectFowardChannel = 6;
+        public static final int kEjectReverseChannel = 7;
     }
 }

@@ -18,10 +18,10 @@ public class DriveTrain extends SubsystemBase {
 
     /** Creates a new DriveTrain. */
     public DriveTrain() {
-        m_leftDriveMotor = new WPI_VictorSPX(DriveTrainConstants.kLeftDriveMotorID);
+        m_leftDriveMotor = new WPI_VictorSPX(DriveTrainConstants.kLeftDriveMotorDeviceID);
         m_leftDriveMotor.configFactoryDefault();
         m_leftDriveMotor.setInverted(true);
-        m_rightDriveMotor = new WPI_VictorSPX(DriveTrainConstants.kRightDriveMotorID);
+        m_rightDriveMotor = new WPI_VictorSPX(DriveTrainConstants.kRightDriveMotorDeviceID);
         m_rightDriveMotor.configFactoryDefault();
         m_rightDriveMotor.setInverted(false);
 

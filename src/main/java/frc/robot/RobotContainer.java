@@ -33,8 +33,11 @@ public class RobotContainer {
     private final XboxController m_driverController = new XboxController(DriverConstants.kDriverControllerPort);
     private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
     private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
-    private final JoystickButton driverRightBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
-    private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton driverRightBumper = new JoystickButton(m_driverController,
+            XboxController.Button.kRightBumper.value);
+    private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController,
+            XboxController.Button.kLeftBumper.value);
+
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
@@ -44,7 +47,7 @@ public class RobotContainer {
                 () -> m_driverController.getLeftX(),
                 s_driveTrain));
 
-        // Configure the trigger bindings
+        // Configure the controller bindings
         configureButtonBindings();
     }
 
@@ -54,7 +57,6 @@ public class RobotContainer {
         driverXButton.onTrue(new InstantCommand(() -> s_Crusher.reverseState()));
         driverRightBumper.whileTrue(new SpinHeadCW(s_Head));
         driverLeftBumper.whileTrue(new SpinHeadCCW(s_Head));
-
 
     }
 
