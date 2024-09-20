@@ -28,7 +28,7 @@ public class DriveTrain extends SubsystemBase {
         m_drive = new DifferentialDrive(m_leftDriveMotor, m_rightDriveMotor);
         m_drive.setSafetyEnabled(true);
         m_drive.setExpiration(0.1);
-        m_drive.setMaxOutput(1.0);
+        m_drive.setMaxOutput(0.2);
     }
 
     public void drive(double left, double right) {
