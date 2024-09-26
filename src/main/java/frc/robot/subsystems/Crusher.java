@@ -58,8 +58,8 @@ public class Crusher extends SubsystemBase {
         ShuffleboardTab crushTab = Shuffleboard.getTab("Crusher");
         crushTab.addString("State Machine", () -> currentState.toString());
         crushTab.addDouble("State Timer", () -> stateTimer.get());
+    
     }
-
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
