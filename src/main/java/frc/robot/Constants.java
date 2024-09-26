@@ -45,8 +45,9 @@ public final class Constants {
         public static final int kEjectReverseChannel = 7;
     }
 
-    public static class BlueButtonConstants {
+    public static class ShoulderButtonsConstants {
         public static final int kBlueButtonDIO = 0;
+        public static final int kRedButtonDIO = 1;
 
     }
 }

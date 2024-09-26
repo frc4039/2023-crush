@@ -13,7 +13,7 @@ import frc.robot.commands.SpinHeadCW;
 import frc.robot.subsystems.Crusher;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Head;
-import frc.robot.subsystems.BlueButton;
+import frc.robot.subsystems.ShoulderButtons;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -32,7 +32,7 @@ public class RobotContainer {
     private final DriveTrain s_driveTrain = new DriveTrain();
     private final Crusher s_Crusher = new Crusher();
     private final Head s_Head = new Head();
-    private final BlueButton s_BlueButton = new BlueButton();
+    private final ShoulderButtons s_ShoulderButtons = new ShoulderButtons();
 
     private final XboxController m_driverController = new XboxController(DriverConstants.kDriverControllerPort);
     private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
