@@ -32,6 +32,7 @@ public class RobotContainer {
     private final DriveTrain s_driveTrain = new DriveTrain();
     private final Crusher s_Crusher = new Crusher();
     private final Head s_Head = new Head();
+    private final BlueButton s_BlueButton = new BlueButton();
 
     private final XboxController m_driverController = new XboxController(DriverConstants.kDriverControllerPort);
     private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
