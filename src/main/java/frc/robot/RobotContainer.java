@@ -13,7 +13,9 @@ import frc.robot.commands.SpinHeadCW;
 import frc.robot.subsystems.Crusher;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Head;
+import frc.robot.subsystems.LEDs;
 import frc.robot.subsystems.ShoulderButtons;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -33,6 +35,7 @@ public class RobotContainer {
     private final Crusher s_Crusher = new Crusher();
     private final Head s_Head = new Head();
     private final ShoulderButtons s_ShoulderButtons = new ShoulderButtons();
+    private final LEDs s_LEDs = new LEDs ();
 
     private final XboxController m_driverController = new XboxController(DriverConstants.kDriverControllerPort);
     private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
@@ -50,6 +53,17 @@ public class RobotContainer {
                 () -> m_driverController.getLeftY(),
                 () -> m_driverController.getLeftX(),
                 s_driveTrain));
+
+        /* 
+    AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(60);
+    
+    m_led.setLength(m_ledBuffer.getLength());
+  
+      // Set the data
+      m_led.setData(m_ledBuffer);
+      m_led.start();
+    */
+
 
         // Configure the controller bindings
         configureButtonBindings();
