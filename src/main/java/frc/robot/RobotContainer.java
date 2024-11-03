@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.DriverConstants;
 import frc.robot.commands.AdvanceState;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.LEDCommand;
 import frc.robot.commands.ReverseState;
 import frc.robot.commands.SpinHeadCCW;
 import frc.robot.commands.SpinHeadCW;
@@ -15,9 +16,12 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Head;
 import frc.robot.subsystems.LEDs;
 import frc.robot.subsystems.ShoulderButtons;
+import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -36,6 +40,7 @@ public class RobotContainer {
     private final Head s_Head = new Head();
     private final ShoulderButtons s_ShoulderButtons = new ShoulderButtons();
     private final LEDs s_LEDs = new LEDs ();
+   
 
     private final XboxController m_driverController = new XboxController(DriverConstants.kDriverControllerPort);
     private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
@@ -44,6 +49,8 @@ public class RobotContainer {
             XboxController.Button.kRightBumper.value);
     private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController,
             XboxController.Button.kLeftBumper.value);
+    private final Trigger redButtonTrigger = new Trigger(s_ShoulderButtons.GetRedButton()::get);
+    private final Trigger blueButtonTrigger = new Trigger(s_ShoulderButtons.GetBlueBotton()::get);
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -54,15 +61,9 @@ public class RobotContainer {
                 () -> m_driverController.getLeftX(),
                 s_driveTrain));
 
-        /* 
-    AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(60);
+        
     
-    m_led.setLength(m_ledBuffer.getLength());
-  
-      // Set the data
-      m_led.setData(m_ledBuffer);
-      m_led.start();
-    */
+    
 
 
         // Configure the controller bindings
@@ -75,11 +76,22 @@ public class RobotContainer {
         driverXButton.onTrue(new ReverseState(s_Crusher));
         driverRightBumper.whileTrue(new SpinHeadCW(s_Head));
         driverLeftBumper.whileTrue(new SpinHeadCCW(s_Head));
+        blueButtonTrigger.onTrue(new LEDCommand(s_ShoulderButtons, s_LEDs));
+        redButtonTrigger.onTrue(new LEDCommand(s_ShoulderButtons, s_LEDs));
+        
 
     }
 
     public DriveTrain getDriveTrain() {
         return s_driveTrain;
     }
-
-}
+        }
+   
+  
+ 
+ 
+ 
+ 
+ 
+     
+   
