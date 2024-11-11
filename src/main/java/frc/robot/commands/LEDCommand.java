@@ -14,6 +14,8 @@ public class LEDCommand extends InstantCommand {
     boolean BlueLight = false;
     boolean RedLight = false;
 
+    boolean test = true;
+
 
 
 
@@ -30,18 +32,39 @@ public void initialize() {
 }
 
 @Override
+
 public void execute() {
     System.out.println("hi:)");
     BlueLight = ShoulderButtons.GetBlueButtonPressed();
     RedLight = ShoulderButtons.GetRedButtonPressed();
-    if (RedLight) {
-        s_LEDS.SetToRed();
-        }
-    if (BlueLight) {
-        s_LEDS.SetToBlue();
-      }
-     
-    
-    }
 
-}
+
+
+
+    while (!BlueLight && !RedLight) {
+        s_LEDS.SetToPurple();
+        break; }
+
+    while (!RedLight) {
+        s_LEDS.SetToBlue();
+        System.out.println("SET TO RED");
+        break;
+        }
+
+    while (!BlueLight) {
+        s_LEDS.SetToRed();
+        System.out.println("SET TO Blue");
+        break;
+      }
+
+    
+
+
+    //for some reason s_LEDS SetToBlue and SetToRed are reversed so i just swaped them.
+
+    }
+    }
+  
+    
+  
+

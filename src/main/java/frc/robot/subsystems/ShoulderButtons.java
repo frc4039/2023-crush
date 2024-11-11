@@ -32,12 +32,12 @@ public class ShoulderButtons extends SubsystemBase {
     public void periodic() {
        
         BlueButtonPressed = m_kBlueButtonDIO.get();
-        if (BlueButtonPressed) {
+        if (!BlueButtonPressed) {
             System.out.println ("BlueButton True");
         }
 
         RedButtonPressed = m_kRedButtonDIO.get();
-        if (RedButtonPressed){
+        if (!RedButtonPressed){
             System.out.println ("RedButton True");
         }
 

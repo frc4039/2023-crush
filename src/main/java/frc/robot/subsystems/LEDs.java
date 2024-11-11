@@ -36,7 +36,7 @@ public class LEDs extends SubsystemBase {
 public void SetToRed()
 {
   for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-        m_ledBuffer.setRGB(i, 255, 0, 0); 
+        m_ledBuffer.setRGB(i, 0, 0, 255); 
       }
       m_led.setData(m_ledBuffer);
 }
@@ -44,12 +44,34 @@ public void SetToRed()
 public void SetToBlue()
 {
   for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-        m_ledBuffer.setRGB(i, 0, 0, 255); 
+        m_ledBuffer.setRGB(i, 255, 0, 0); 
       }
       m_led.setData(m_ledBuffer);
 }
+public void SetToWhite()
+{
+  for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+      m_ledBuffer.setRGB(i ,255, 255, 255);
+  }
+  m_led.setData(m_ledBuffer);
+
+  }
+
+
+public void SetToPurple()
+{
+  for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+      m_ledBuffer.setRGB(i ,255, 0, 255);
+      
+  }
+  m_led.setData(m_ledBuffer);
 
 }
+
+}
+
+
+
 
     
 /* 

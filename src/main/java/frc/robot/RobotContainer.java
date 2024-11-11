@@ -76,8 +76,8 @@ public class RobotContainer {
         driverXButton.onTrue(new ReverseState(s_Crusher));
         driverRightBumper.whileTrue(new SpinHeadCW(s_Head));
         driverLeftBumper.whileTrue(new SpinHeadCCW(s_Head));
-        blueButtonTrigger.onTrue(new LEDCommand(s_ShoulderButtons, s_LEDs));
-        redButtonTrigger.onTrue(new LEDCommand(s_ShoulderButtons, s_LEDs));
+        blueButtonTrigger.whileFalse(new LEDCommand(s_ShoulderButtons, s_LEDs));
+        redButtonTrigger.whileFalse (new LEDCommand(s_ShoulderButtons, s_LEDs));
         
 
     }
