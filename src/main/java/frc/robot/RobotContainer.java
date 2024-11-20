@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.LEDCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -49,6 +50,11 @@ public class RobotContainer {
             XboxController.Button.kRightBumper.value);
     private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController,
             XboxController.Button.kLeftBumper.value);
+    private final Trigger dDown = new Trigger(() -> m_driverController.getPOV()== 0);
+    private final Trigger dLeft = new Trigger(() -> m_driverController.getPOV()== 0);
+    private final Trigger dRight = new Trigger(() -> m_driverController.getPOV()== 0);
+    private final Trigger dUp = new Trigger(() -> m_driverController.getPOV()== 0);
+
     private final Trigger redButtonTrigger = new Trigger(s_ShoulderButtons.GetRedButton()::get);
     private final Trigger blueButtonTrigger = new Trigger(s_ShoulderButtons.GetBlueBotton()::get);
 
@@ -72,10 +78,15 @@ public class RobotContainer {
 
     private void configureButtonBindings() {
 
+
         driverBButton.onTrue(new AdvanceState(s_Crusher));
         driverXButton.onTrue(new ReverseState(s_Crusher));
         driverRightBumper.whileTrue(new SpinHeadCW(s_Head));
         driverLeftBumper.whileTrue(new SpinHeadCCW(s_Head));
+        dDown.whileTrue(new LEDCommand(s_ShoulderButtons, s_LEDs));
+        dUp.whileTrue(new LEDCommand(s_ShoulderButtons, s_LEDs));
+        dLeft.whileTrue(new LEDCommand(s_ShoulderButtons, s_LEDs));
+        dRight.whileTrue(new LEDCommand(s_ShoulderButtons, s_LEDs));
         blueButtonTrigger.whileFalse(new LEDCommand(s_ShoulderButtons, s_LEDs));
         redButtonTrigger.whileFalse (new LEDCommand(s_ShoulderButtons, s_LEDs));
         
