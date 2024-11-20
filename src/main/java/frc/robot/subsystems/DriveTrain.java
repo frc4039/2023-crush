@@ -5,10 +5,11 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
+import java.lang.Math;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveTrainConstants;
+import java.lang.Math;
 
 public class DriveTrain extends SubsystemBase {
     private WPI_VictorSPX m_leftDriveMotor;
@@ -33,8 +34,8 @@ public class DriveTrain extends SubsystemBase {
 
     public void drive(double left, double right) {
         m_drive.feed();
-        m_leftDriveMotor.set(left);
-        m_rightDriveMotor.set(right);
+        m_leftDriveMotor.set(Math.pow(left,3));
+        m_rightDriveMotor.set(Math.pow(right,3));
     }
 
     public double normalizeJoystickWithDeadband(double val, double deadband) {
