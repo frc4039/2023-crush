@@ -34,8 +34,8 @@ public class DriveTrain extends SubsystemBase {
 
     public void drive(double left, double right) {
         m_drive.feed();
-        m_leftDriveMotor.set(Math.pow(left,3));
-        m_rightDriveMotor.set(Math.pow(right,3));
+        m_leftDriveMotor.set(Math.pow(left,1));
+        m_rightDriveMotor.set(Math.pow(right,1));
     }
 
     public double normalizeJoystickWithDeadband(double val, double deadband) {
