@@ -8,14 +8,22 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Sounds;
 
 public class PlaySoundCMD extends InstantCommand {
+
+  private final Sounds m_Sound;
+  private String m_SoundName;
+
   /** Creates a new PlaySoundCMD. */
-  public PlaySoundCMD(Sounds s_Sounds, String SoundName) {
+  public PlaySoundCMD(Sounds Sounds, String SoundName) {
+    m_Sound = Sounds;
+    m_SoundName = SoundName;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() { 
+    m_Sound.PlaySound(m_SoundName);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
