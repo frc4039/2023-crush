@@ -7,15 +7,18 @@ package frc.robot;
 import frc.robot.Constants.DriverConstants;
 import frc.robot.commands.AdvanceState;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.PlaySoundCMD;
 import frc.robot.commands.ReverseState;
 import frc.robot.commands.SpinHeadCCW;
 import frc.robot.commands.SpinHeadCW;
 import frc.robot.subsystems.Crusher;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Head;
+import frc.robot.subsystems.Sounds;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -31,6 +34,7 @@ public class RobotContainer {
     private final DriveTrain s_driveTrain = new DriveTrain();
     private final Crusher s_Crusher = new Crusher();
     private final Head s_Head = new Head();
+    private final Sounds s_Sounds = new Sounds();
 
     private final XboxController m_driverController = new XboxController(DriverConstants.kDriverControllerPort);
     private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
@@ -39,7 +43,7 @@ public class RobotContainer {
             XboxController.Button.kRightBumper.value);
     private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController,
             XboxController.Button.kLeftBumper.value);
-
+    private final JoystickButton driverAButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
@@ -59,6 +63,7 @@ public class RobotContainer {
         driverXButton.onTrue(new ReverseState(s_Crusher));
         driverRightBumper.whileTrue(new SpinHeadCW(s_Head));
         driverLeftBumper.whileTrue(new SpinHeadCCW(s_Head));
+        driverAButton.onTrue(new PlaySoundCMD(s_Sounds, "MyNameIsCrush.wav"));
 
     }
 
