@@ -63,7 +63,7 @@ public class RobotContainer {
         driverXButton.onTrue(new ReverseState(s_Crusher));
         driverRightBumper.whileTrue(new SpinHeadCW(s_Head));
         driverLeftBumper.whileTrue(new SpinHeadCCW(s_Head));
-        driverAButton.onTrue(new PlaySoundCMD(s_Sounds, "MyNameIsCrush.wav"));
+        driverAButton.onTrue(new PlaySoundCMD(s_Sounds, "mynameiscrush.wav"));
 
     }
 
