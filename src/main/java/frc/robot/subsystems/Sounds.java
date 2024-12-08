@@ -31,6 +31,8 @@ public class Sounds extends SubsystemBase {
         // This method will be called once per scheduler run
 
     }
+
+    //
     public boolean PlaySound(String SoundName) {
         if (!this.m_piSounds.getEntry("IsSoundPlaying").getBoolean(false)) {
           pubPlaySound.set(SoundName);
@@ -40,5 +42,17 @@ public class Sounds extends SubsystemBase {
           return false;
         }
     }
+
+    // Checks to see if the Pi Is Playing a sound (NT IsSoundPlaying = True)
+    public boolean IsSoundPlaying() {
+      if (this.m_piSounds.getEntry("IsSoundPlaying").getBoolean(false)) {
+        pubPlaySound.set("None");
+        return true;
+      }
+      else {
+        return false;
+      }
+  }
+
 }
 

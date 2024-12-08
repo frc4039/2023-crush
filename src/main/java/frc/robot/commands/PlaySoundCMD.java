@@ -36,6 +36,7 @@ public class PlaySoundCMD extends InstantCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    //Ends command if sound is playing 
+    return m_Sound.IsSoundPlaying();
   }
 }
