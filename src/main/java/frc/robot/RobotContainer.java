@@ -16,7 +16,6 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Head;
 import frc.robot.subsystems.Sounds;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
@@ -59,7 +58,7 @@ public class RobotContainer {
 
     private void configureButtonBindings() {
 
-        driverBButton.onTrue(new AdvanceState(s_Crusher));
+        driverBButton.onTrue(new AdvanceState(s_Crusher, s_Sounds));
         driverXButton.onTrue(new ReverseState(s_Crusher));
         driverRightBumper.whileTrue(new SpinHeadCW(s_Head));
         driverLeftBumper.whileTrue(new SpinHeadCCW(s_Head));

@@ -28,8 +28,10 @@ public class Sounds extends SubsystemBase {
 
     @Override
     public void periodic() {
-        // This method will be called once per scheduler run
-
+      // This method will be called once per scheduler run
+      if (this.m_piSounds.getEntry("IsSoundPlaying").getBoolean(false)){
+        pubPlaySound.set("None");
+      }
     }
 
     //
@@ -46,8 +48,8 @@ public class Sounds extends SubsystemBase {
 
     // Checks to see if the Pi Is Playing a sound (NT IsSoundPlaying = True)
     public boolean IsSoundPlaying() {
-      if (this.m_piSounds.getEntry("IsSoundPlaying").getBoolean(false)) {
-        pubPlaySound.set("None");
+      if (this.m_piSounds.getEntry("IsSoundPlaying").getBoolean(false)){
+         pubPlaySound.set("None");
         return true;
       }
       else {

@@ -38,7 +38,7 @@ public class Crusher extends SubsystemBase {
             CrusherConstants.kDoubleSolenoidModuleID, PneumaticsModuleType.CTREPCM,
             CrusherConstants.kEjectFowardChannel, CrusherConstants.kEjectReverseChannel);
 
-    private enum RobotState {
+    public enum RobotState {
         STARTUP1,
         STARTUP2,
         LOADING,
@@ -51,8 +51,9 @@ public class Crusher extends SubsystemBase {
         UNEJECT
     }
 
-    private RobotState currentState = RobotState.STARTUP1;
+    public RobotState currentState = RobotState.STARTUP1;
     private Timer stateTimer = new Timer();
+    private Boolean stateChanging;
 
     public Crusher() {
         ShuffleboardTab crushTab = Shuffleboard.getTab("Crusher");
@@ -158,7 +159,7 @@ public class Crusher extends SubsystemBase {
         }
 
     }
-
+    
     public void advanceState() {
         switch (currentState) {
             case LOADING:
