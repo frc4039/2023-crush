@@ -42,9 +42,9 @@ public class ArcadeDrive extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-
-        double m_left = left.getAsDouble();
-        double m_right = right.getAsDouble();
+        double slowDown = 0.0;
+        double m_left = left.getAsDouble() - slowDown;
+        double m_right = right.getAsDouble() - slowDown;
         m_left = m_drivetrain.normalizeJoystickWithDeadband(m_left, 0.1);
         m_right = m_drivetrain.normalizeJoystickWithDeadband(m_right, 0.1);
         m_left = m_left * m_left * m_left;

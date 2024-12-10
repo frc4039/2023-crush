@@ -8,15 +8,23 @@ import frc.robot.Constants.DriverConstants;
 import frc.robot.commands.AdvanceState;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.PlaySoundCMD;
+import frc.robot.commands.LEDCommand;
 import frc.robot.commands.ReverseState;
 import frc.robot.commands.SpinHeadCCW;
 import frc.robot.commands.SpinHeadCW;
 import frc.robot.subsystems.Crusher;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Head;
+import frc.robot.subsystems.LEDs;
+import frc.robot.subsystems.ShoulderButtons;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.subsystems.Sounds;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.LEDCommand;
 
 
 /**
@@ -33,6 +41,9 @@ public class RobotContainer {
     private final DriveTrain s_driveTrain = new DriveTrain();
     private final Crusher s_Crusher = new Crusher();
     private final Head s_Head = new Head();
+    private final ShoulderButtons s_ShoulderButtons = new ShoulderButtons();
+    private final LEDs s_LEDs = new LEDs ();
+   
     private final Sounds s_Sounds = new Sounds();
 
     private final XboxController m_driverController = new XboxController(DriverConstants.kDriverControllerPort);
@@ -42,6 +53,13 @@ public class RobotContainer {
             XboxController.Button.kRightBumper.value);
     private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController,
             XboxController.Button.kLeftBumper.value);
+    private final Trigger dDown = new Trigger(() -> m_driverController.getPOV()== 0);
+    private final Trigger dLeft = new Trigger(() -> m_driverController.getPOV()== 0);
+    private final Trigger dRight = new Trigger(() -> m_driverController.getPOV()== 0);
+    private final Trigger dUp = new Trigger(() -> m_driverController.getPOV()== 0);
+
+    private final Trigger redButtonTrigger = new Trigger(s_ShoulderButtons.GetRedButton()::get);
+    private final Trigger blueButtonTrigger = new Trigger(s_ShoulderButtons.GetBlueBotton()::get);
     private final JoystickButton driverAButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -52,16 +70,29 @@ public class RobotContainer {
                 () -> m_driverController.getLeftX(),
                 s_driveTrain));
 
+        
+    
+    
+
+
         // Configure the controller bindings
         configureButtonBindings();
     }
 
     private void configureButtonBindings() {
 
+
         driverBButton.onTrue(new AdvanceState(s_Crusher, s_Sounds));
         driverXButton.onTrue(new ReverseState(s_Crusher));
         driverRightBumper.whileTrue(new SpinHeadCW(s_Head));
         driverLeftBumper.whileTrue(new SpinHeadCCW(s_Head));
+        dDown.whileTrue(new LEDCommand(s_ShoulderButtons, s_LEDs));
+        dUp.whileTrue(new LEDCommand(s_ShoulderButtons, s_LEDs));
+        dLeft.whileTrue(new LEDCommand(s_ShoulderButtons, s_LEDs));
+        dRight.whileTrue(new LEDCommand(s_ShoulderButtons, s_LEDs));
+        blueButtonTrigger.whileFalse(new LEDCommand(s_ShoulderButtons, s_LEDs));
+        redButtonTrigger.whileFalse (new LEDCommand(s_ShoulderButtons, s_LEDs));
+        
         driverAButton.onTrue(new PlaySoundCMD(s_Sounds, "mynameiscrush.wav"));
 
     }
@@ -69,5 +100,13 @@ public class RobotContainer {
     public DriveTrain getDriveTrain() {
         return s_driveTrain;
     }
-
-}
+        }
+   
+  
+ 
+ 
+ 
+ 
+ 
+     
+   
