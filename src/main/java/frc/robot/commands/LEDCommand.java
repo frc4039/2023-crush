@@ -41,7 +41,7 @@ public void execute() {
     System.out.println("hi:)");
     BlueLight = ShoulderButtons.GetBlueButtonPressed();
     RedLight = ShoulderButtons.GetRedButtonPressed();
-
+    
 
 
 //WHILES SHOULD BE IF FIX LATER
@@ -52,7 +52,7 @@ public void execute() {
     //{
        
                 if (!BlueLight && !RedLight) {
-                s_LEDS.SetToPurple();
+                s_LEDS.ScrollRainbow();
             // break; 
         }
       

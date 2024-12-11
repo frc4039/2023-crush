@@ -17,6 +17,9 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Head;
 import frc.robot.subsystems.LEDs;
 import frc.robot.subsystems.ShoulderButtons;
+
+import com.ctre.phoenix.led.RainbowAnimation;
+
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -61,6 +64,7 @@ public class RobotContainer {
     private final Trigger redButtonTrigger = new Trigger(s_ShoulderButtons.GetRedButton()::get);
     private final Trigger blueButtonTrigger = new Trigger(s_ShoulderButtons.GetBlueBotton()::get);
     private final JoystickButton driverAButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
+    private final JoystickButton driverYButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
@@ -94,6 +98,7 @@ public class RobotContainer {
         redButtonTrigger.whileFalse (new LEDCommand(s_ShoulderButtons, s_LEDs));
         
         driverAButton.onTrue(new PlaySoundCMD(s_Sounds, "mynameiscrush.wav"));
+        driverYButton.whileTrue(new LEDCommand(s_LEDs,  ));
 
     }
 
