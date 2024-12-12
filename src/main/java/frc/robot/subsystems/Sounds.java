@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
+import edu.wpi.first.wpilibj.Timer;
 
 
 /*
@@ -26,6 +27,7 @@ public class Sounds extends SubsystemBase {
 
     private NetworkTable m_piSounds;
     private StringPublisher pubPlaySound;
+    private Timer PlayingTimer = new Timer();
 
 
     /** Creates a new Sounds. */
@@ -40,7 +42,7 @@ public class Sounds extends SubsystemBase {
     @Override
     public void periodic() {
       // This method will be called once per scheduler run
-      if (this.m_piSounds.getEntry("IsSoundPlaying").getBoolean(false)){
+      if (this.m_piSounds.getEntry("IsSoundPlaying").getBoolean(false) || PlayingTimer.get() > 10){
         pubPlaySound.set("None");
       }
     }
@@ -48,10 +50,13 @@ public class Sounds extends SubsystemBase {
     //
     public boolean PlaySound(String SoundName) {
       if (!this.m_piSounds.getEntry("IsSoundPlaying").getBoolean(false)) {
+        System.out.println("PlaySound:" + SoundName);
         pubPlaySound.set(SoundName);
+        PlayingTimer.reset();
+        PlayingTimer.start();
         return true;
       }
-      else {
+      else {        
         return false;
       }
     }

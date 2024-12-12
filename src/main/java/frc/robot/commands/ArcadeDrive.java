@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -19,14 +20,17 @@ public class ArcadeDrive extends CommandBase {
     private final DriveTrain m_drivetrain;
     private DoubleSupplier left;
     private DoubleSupplier right;
+    private BooleanSupplier m_deadman;
+    
 
     /**
      * Creates a new ArcadeDrive Command.
      *
      * @param subsystem
      */
-    public ArcadeDrive(DoubleSupplier left, DoubleSupplier right, DriveTrain drivetrain) {
+    public ArcadeDrive(DoubleSupplier left, DoubleSupplier right, BooleanSupplier deadman, DriveTrain drivetrain) {
         m_drivetrain = drivetrain;
+        m_deadman = deadman;
         this.left = left;
         this.right = right;
 
@@ -62,8 +66,15 @@ public class ArcadeDrive extends CommandBase {
         m_left = m_left / saturatedInput;
         m_right = m_right / saturatedInput;
 
-        m_drivetrain.drive(m_right - m_left, -m_left - m_right);
-
+        // Requires Deadman button to be pressed for drive funtion.
+        if (m_deadman.getAsBoolean()){
+            m_drivetrain.drive(m_right - m_left, -m_left - m_right);
+            //System.out.printf("left: %f, right: %f %n", m_right - m_left, -m_left - m_right);
+        }
+        else {
+            m_drivetrain.drive(0,0);
+            //System.out.printf("left: %f, right: %f %n", 0.0, 0.0);
+        }
     }
 
     // Called once the command ends or is interrupted.
