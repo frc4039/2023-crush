@@ -10,6 +10,18 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
 
+
+/*
+ * Sound Subsystem requires a Raspberry PI loaded with the Wpilibpi image,
+ * running the CrushPi custom application and connected to the Robots network.
+ * 
+ * The Pi is used becuase it has a Sound Card, while the Rio doesn't
+ * 
+ * The Robo Rio and the Pi communicate over the Crush Sounds Network Table
+ *    - The Rio Tells the Pi what sound to Play (Playsound Topic)
+ *    - The Pi Tells the RIO when the sould is playing (IsSoundPlaying Topic)
+ */
+
 public class Sounds extends SubsystemBase {
 
     private NetworkTable m_piSounds;
@@ -18,12 +30,11 @@ public class Sounds extends SubsystemBase {
 
     /** Creates a new Sounds. */
     public Sounds() {
-        m_piSounds = NetworkTableInstance.getDefault().getTable("CrushSounds");
-        //set up network table publisher topic
-    
-        pubPlaySound = m_piSounds.getStringTopic("PlaySound").publish();
-        pubPlaySound.set("None");
-        
+      m_piSounds = NetworkTableInstance.getDefault().getTable("CrushSounds");
+      //set up network table publisher topic
+  
+      pubPlaySound = m_piSounds.getStringTopic("PlaySound").publish();
+      pubPlaySound.set("None");
     }
 
     @Override
@@ -36,14 +47,13 @@ public class Sounds extends SubsystemBase {
 
     //
     public boolean PlaySound(String SoundName) {
-        if (!this.m_piSounds.getEntry("IsSoundPlaying").getBoolean(false)) {
-          pubPlaySound.set(SoundName);
-          return true;
-        }
-        else {
-          return false;
-        }
-      
+      if (!this.m_piSounds.getEntry("IsSoundPlaying").getBoolean(false)) {
+        pubPlaySound.set(SoundName);
+        return true;
+      }
+      else {
+        return false;
+      }
     }
 
     // Checks to see if the Pi Is Playing a sound (NT IsSoundPlaying = True)
