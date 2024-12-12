@@ -9,11 +9,22 @@ import edu.wpi.first.wpilibj.Timer;
 
 
 public class LEDs extends SubsystemBase {
+
+  public enum LEDColours {
+    WHITE,
+    RED,
+    BLUE,
+    PURPLE,
+    SCROLLRAINBOW,
+    FLASHRAINBOW
+  }
     private AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(48);
    // PWM port 9
     // Must be a PWM header, not MXP or DIO
     private AddressableLED m_led = new AddressableLED(9);
-    private Boolean RainbowMode = false;
+    private Boolean RainbowScrollMode = false;
+    private Boolean RainbowFlashMode = false;
+    private int ScrollRate = 3; //number of chnages per second
     private Timer ScrollTimer = new Timer();
 
     public LEDs () {
@@ -37,13 +48,17 @@ public class LEDs extends SubsystemBase {
 @Override
 public void periodic() {
   // This method will be called once per scheduler run
-  if (RainbowMode == true) this.ScrollRainbow();
+  if (RainbowScrollMode) ScrollRainbow();
+  if (RainbowFlashMode) FlashRainbow();
+  
   
 }
 
 public void SetToRed()
 {
-  RainbowMode = false;
+  System.out.println("LEDS: Red");
+  RainbowScrollMode = false;
+  RainbowFlashMode = false;
   for (int i = 0; i < m_ledBuffer.getLength(); i++) {
         m_ledBuffer.setRGB(i, 0, 0, 255); 
       }
@@ -52,7 +67,9 @@ public void SetToRed()
 
 public void SetToBlue()
 {
-  RainbowMode = false;
+  System.out.println("LEDS: Blue");
+  RainbowScrollMode = false;
+  RainbowFlashMode = false;
   for (int i = 0; i < m_ledBuffer.getLength(); i++) {
         m_ledBuffer.setRGB(i, 255, 0, 0); 
       }
@@ -60,7 +77,9 @@ public void SetToBlue()
 }
 public void SetToWhite()
 {
-  RainbowMode = false;
+  System.out.println("LEDS: White");
+  RainbowScrollMode = false;
+  RainbowFlashMode = false;
   for (int i = 0; i < m_ledBuffer.getLength(); i++) {
       m_ledBuffer.setRGB(i ,255, 255, 255);
   }
@@ -71,7 +90,9 @@ public void SetToWhite()
 
 public void SetToPurple()
 {
-  RainbowMode = false;
+  System.out.println("LEDS: Purple");
+  RainbowScrollMode = false;
+  RainbowFlashMode = false;
   for (int i = 0; i < m_ledBuffer.getLength(); i++) {
       m_ledBuffer.setRGB(i ,255, 0, 255);
       
@@ -80,9 +101,11 @@ public void SetToPurple()
 
 }
 
-public void SetToRainbow()
+public void SetToScrollRainbow()
 {
-  RainbowMode = true;
+  System.out.println("LEDS: Rainbow");
+  RainbowScrollMode = true;
+  RainbowFlashMode = false;
   for (int i = 0; i < m_ledBuffer.getLength(); i++) {
       if (i % 7 == 0) m_ledBuffer.setRGB(i ,255, 0, 0);  // Red
       if (i % 7 == 1) m_ledBuffer.setRGB(i ,255, 127, 0);  // Orange
@@ -96,12 +119,16 @@ public void SetToRainbow()
 
   ScrollTimer.reset();
   ScrollTimer.start();
-
 }
+
 public void ScrollRainbow()
 {
+  System.out.println("LEDS: RainbowScroll");
   for (int i = 0; i < m_ledBuffer.getLength(); i++) {
-      switch ((i + (int) ScrollTimer.get()) % 7){  //should cause colours to scoll every second.
+  
+    if (i==0) System.out.printf("LEDS: RainbowScroll Timer: %d, i:%d, Colour:%d %n", (int) ScrollTimer.get(), i, ((i + (int) (ScrollTimer.get()*ScrollRate)) % 7));
+
+      switch ((i + (int) (ScrollTimer.get() * ScrollRate)) % 7){  //should cause colours to scroll every second.
       case 0: 
         m_ledBuffer.setRGB(i ,255, 0, 0);  // Red
         break;
@@ -126,8 +153,53 @@ public void ScrollRainbow()
       }
     }
     m_led.setData(m_ledBuffer);
-
   }
+  public void SetToFlashRainbow()
+{
+  System.out.println("LEDS: FlashRainbow");
+  RainbowScrollMode = false;
+  RainbowFlashMode = true;
+  for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+      if (i % 7 == 0) m_ledBuffer.setRGB(i ,255, 0, 0);  // Red
+  }
+  m_led.setData(m_ledBuffer);
+
+  ScrollTimer.reset();
+  ScrollTimer.start();
+}
+
+public void FlashRainbow()
+{
+   int i = 0;  
+    System.out.printf("LEDS: RainbowFlash Timer: %d, Colour:%d %n", (int) ScrollTimer.get(), (((int) (ScrollTimer.get()*ScrollRate)) % 7));
+
+    switch (( (int) (ScrollTimer.get() * ScrollRate)) % 7){  //should cause colours to scroll every second.
+    case 0: 
+      for (i = 0; i < m_ledBuffer.getLength(); i++) {m_ledBuffer.setRGB(i ,255, 0, 0); }  // Red
+      break;
+    case 1: 
+      for (i = 0; i < m_ledBuffer.getLength(); i++) {m_ledBuffer.setRGB(i ,255, 127, 0); }  // Orange
+      break;
+    case 2: 
+      for (i = 0; i < m_ledBuffer.getLength(); i++) {m_ledBuffer.setRGB(i ,255, 255, 0); } // Yellow
+      break;
+    case 3: 
+      for (i = 0; i < m_ledBuffer.getLength(); i++) {m_ledBuffer.setRGB(i ,0, 255, 0); } // Green
+      break;
+    case 4: 
+      for (i = 0; i < m_ledBuffer.getLength(); i++) {m_ledBuffer.setRGB(i ,0, 0, 255); } // Blue
+      break;
+    case 5: 
+      for (i = 0; i < m_ledBuffer.getLength(); i++) {m_ledBuffer.setRGB(i ,75, 0, 130); } // Indego
+      break;
+    case 6: 
+      for (i = 0; i < m_ledBuffer.getLength(); i++) {m_ledBuffer.setRGB(i ,148, 0, 211); } // Violet
+      break;
+    }
+    
+    m_led.setData(m_ledBuffer);
+  }
+
 }
    
 

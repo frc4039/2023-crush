@@ -53,13 +53,13 @@ public class Crusher extends SubsystemBase {
 
     public RobotState currentState = RobotState.STARTUP1;
     private Timer stateTimer = new Timer();
-    private Boolean stateChanging;
-
+    private double m_time;
+    
     public Crusher() {
         ShuffleboardTab crushTab = Shuffleboard.getTab("Crusher");
         crushTab.addString("State Machine", () -> currentState.toString());
         crushTab.addDouble("State Timer", () -> stateTimer.get());
-    
+        crushTab.addBoolean("Ready State", () -> (stateTimer.get() >= m_time));
     }
     @Override
     public void periodic() {
@@ -152,6 +152,7 @@ public class Crusher extends SubsystemBase {
     }
 
     void goToState(RobotState nextState, double time) {
+        m_time = time;
         if (stateTimer.get() >= time) {
             currentState = nextState;
             stateTimer.reset();

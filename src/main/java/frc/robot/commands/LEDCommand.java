@@ -1,11 +1,6 @@
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
-import javax.swing.text.html.HTMLDocument.BlockElement;
-
-import edu.wpi.first.wpilibj.AddressableLED;
-import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.LEDs;
 import frc.robot.subsystems.ShoulderButtons; 
 import java.util.Timer; 
@@ -32,56 +27,18 @@ public class LEDCommand extends InstantCommand {
 
 @Override
 public void initialize() {
-
 }
 
 @Override
-
 public void execute() {
-    System.out.println("hi:)");
     BlueLight = ShoulderButtons.GetBlueButtonPressed();
     RedLight = ShoulderButtons.GetRedButtonPressed();
-    
-
-
-//WHILES SHOULD BE IF FIX LATER
-    //if (BlueLight && RedLight)
-      //  s_LEDS.SetToWhite();
-    //temp = 0;
-
-    //{
        
-                if (!BlueLight && !RedLight) {
-                s_LEDS.ScrollRainbow();
-            // break; 
-        }
-      
-        if (!RedLight) {
-            s_LEDS.SetToBlue();
-            System.out.println("SET TO RED");
-          
-        //break;
-            }
-        if (!BlueLight) {
-            s_LEDS.SetToRed();
-            System.out.println("SET TO Blue");
-           
-            //s_LEDS.SetToWhite();
-            //break;    
-        }
-        
+    if (!BlueLight && !RedLight) s_LEDS.SetToPurple();
+    else if (!RedLight) s_LEDS.SetToBlue();
+    else if (!BlueLight) s_LEDS.SetToRed();
     }
-
-    }
-
-
- //   if (RedLight & BlueLight) {
-   //   s_LEDS.SetToWhite();
-    //}
-
-
-    //for some reason s_LEDS SetToBlue and SetToRed are reversed so i just swaped them.
-
+}
     
     
   
