@@ -44,7 +44,6 @@ public class RobotContainer {
     private final Head s_Head = new Head();
     private final ShoulderButtons s_ShoulderButtons = new ShoulderButtons();
     private final LEDs s_LEDs = new LEDs ();
-   
     private final Sounds s_Sounds = new Sounds();
 
     private final XboxController m_driverController = new XboxController(DriverConstants.kDriverControllerPort);
@@ -64,6 +63,7 @@ public class RobotContainer {
     private final Trigger blueButtonTrigger = new Trigger(s_ShoulderButtons.GetBlueBotton()::get);
     private final JoystickButton driverAButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
     private final JoystickButton driverYButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
+
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
@@ -71,6 +71,7 @@ public class RobotContainer {
         s_driveTrain.setDefaultCommand(new ArcadeDrive(
                 () -> m_driverController.getLeftY(),
                 () -> m_driverController.getLeftX(),
+                () -> driverYButton.getAsBoolean(),
                 s_driveTrain));
 
         // Configure the controller bindings
