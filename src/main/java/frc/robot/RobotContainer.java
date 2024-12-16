@@ -87,8 +87,8 @@ public class RobotContainer {
 
         // LED Controls
         driverDPadUpTrigger.onTrue(new LEDColourCommand(s_LEDs, LEDColours.WHITE));
-        driverDPadDownTrigger.onTrue(new LEDColourCommand(s_LEDs, LEDColours.SCROLLRAINBOW));
-        driverDPadLeftTrigger.onTrue(new LEDColourCommand(s_LEDs, LEDColours.FLASHRAINBOW));
+        driverDPadLeftTrigger.onTrue(new LEDColourCommand(s_LEDs, LEDColours.SCROLLRAINBOW));
+        driverDPadDownTrigger.onTrue(new LEDColourCommand(s_LEDs, LEDColours.FLASHRAINBOW));
         //driverDPadRightTrigger.onTrue(new LEDColourCommand(s_LEDs, LEDColours.XMAS)); // For Future (Red/Green) for Xmas
         blueButtonTrigger.whileFalse(new LEDCommand(s_ShoulderButtons, s_LEDs));
         redButtonTrigger.whileFalse (new LEDCommand(s_ShoulderButtons, s_LEDs));

@@ -30,7 +30,7 @@ public class AdvanceState extends InstantCommand {
     public void initialize() {
         if(m_Crusher.currentState == RobotState.UNCRUSH ){ 
             m_Sounds.PlaySound("thankyou.wav");
-            m_LEDS.SetToScrollRainbow();
+            m_LEDS.SetToFlashRainbow();
         }else if (m_Crusher.currentState == RobotState.LOADING ){
             m_LEDS.SetToWhite();
         }
