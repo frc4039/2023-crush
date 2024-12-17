@@ -38,7 +38,7 @@ public class Crusher extends SubsystemBase {
             CrusherConstants.kDoubleSolenoidModuleID, PneumaticsModuleType.CTREPCM,
             CrusherConstants.kEjectFowardChannel, CrusherConstants.kEjectReverseChannel);
 
-    private enum RobotState {
+    public enum RobotState {
         STARTUP1,
         STARTUP2,
         LOADING,
@@ -51,15 +51,16 @@ public class Crusher extends SubsystemBase {
         UNEJECT
     }
 
-    private RobotState currentState = RobotState.STARTUP1;
+    public RobotState currentState = RobotState.STARTUP1;
     private Timer stateTimer = new Timer();
-
+    private double m_time;
+    
     public Crusher() {
         ShuffleboardTab crushTab = Shuffleboard.getTab("Crusher");
         crushTab.addString("State Machine", () -> currentState.toString());
         crushTab.addDouble("State Timer", () -> stateTimer.get());
+        crushTab.addBoolean("Ready State", () -> (stateTimer.get() >= m_time));
     }
-
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
@@ -151,6 +152,7 @@ public class Crusher extends SubsystemBase {
     }
 
     void goToState(RobotState nextState, double time) {
+        m_time = time;
         if (stateTimer.get() >= time) {
             currentState = nextState;
             stateTimer.reset();
@@ -158,7 +160,7 @@ public class Crusher extends SubsystemBase {
         }
 
     }
-
+    
     public void advanceState() {
         switch (currentState) {
             case LOADING:
